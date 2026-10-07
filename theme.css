@@ -737,23 +737,33 @@ body:not(.ember-decor-off) .callout[data-callout="note"] .callout-icon::after {
 }
 
 /* Sidebar: decor at the bottom of the file explorer (a pile of leaves at 60%,
-   or pumpkins, a ghost and a bat). */
+   or pumpkins, a ghost and a bat). It sits behind the tree: the explorer leaf
+   becomes its own stacking context and the decor goes to z-index -1, so it
+   paints after the sidebar background but under the rows, icons and text.
+   Hovered and active rows cover it with their background. */
+body:not(.ember-decor-off) .workspace-leaf-content[data-type="file-explorer"] {
+  isolation: isolate;
+}
+
 body:not(.ember-decor-off) .workspace-leaf-content[data-type="file-explorer"]::after {
   content: "";
   position: absolute;
   inset: auto 0 0;
+  z-index: -1;
   height: var(--ember-decor-sidebar-height);
   opacity: var(--ember-decor-sidebar-opacity);
   pointer-events: none;
   background: var(--ember-decor-sidebar) left bottom / 216px var(--ember-decor-sidebar-height) no-repeat;
 }
 
-/* Hallows: a cobweb in the explorer's top-right corner, at 45%. */
+/* Hallows: a cobweb in the explorer's top-right corner, at 45%, also behind
+   the tree and the explorer's header buttons. */
 body.ember-decor-hallows .workspace-leaf-content[data-type="file-explorer"]::before {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
+  z-index: -1;
   width: 76px;
   height: 76px;
   opacity: 0.45;
