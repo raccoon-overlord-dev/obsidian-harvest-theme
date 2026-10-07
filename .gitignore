@@ -1,0 +1,13 @@
+.env
+.env.*
+LOCAL-NOTES.md
+node_modules/
+.DS_Store
+test-vault/*
+!test-vault/README.md
+__pycache__/
+
+# Local working files, not published
+requirements.md
+CLAUDE.md
+reference/

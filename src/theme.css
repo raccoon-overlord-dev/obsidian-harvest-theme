@@ -1,0 +1,800 @@
+/* @settings
+name: Harvest
+id: harvest
+settings:
+  - id: ember-decor
+    title: Seasonal decor
+    description: Decorative touches in the sidebar, bullets, H2 markers and callouts. Halloween also switches to the violet-plum palette.
+    type: class-select
+    allowEmpty: false
+    default: ember-decor-leaves
+    options:
+      - label: "Off"
+        value: ember-decor-off
+      - label: Leaves
+        value: ember-decor-leaves
+      - label: Halloween
+        value: ember-decor-hallows
+  - id: ember-font-heading
+    title: Heading font
+    description: Font for H1 to H3. Type the name of any font installed on your system. The design uses Literata, a free font from Google Fonts. For body text, interface and code, use Settings > Appearance > Font (the design uses DM Sans and JetBrains Mono).
+    type: variable-text
+    default: "'Literata', Georgia, serif"
+*/
+
+/* Harvest: autumn app theme for Obsidian, light + dark.
+   Source file. Edit this, then run `python3 build.py` to generate ../theme.css. */
+
+/* ---------- Palettes ----------
+   Leaves (default, also used by Off) on .theme-dark / .theme-light.
+   Hallows overrides on body.ember-decor-hallows. Values from the handoff's tokens.json. */
+
+.theme-dark {
+  --ember-bg: #221a16;
+  --ember-side: #1b1512;
+  --ember-side2: #171210;
+  --ember-border: #3a2c24;
+  --ember-text: #e9dccb;
+  --ember-muted: #a8968a;
+  --ember-faint: #7a6a5e;
+  --ember-accent: #e8894a;
+  --ember-h1: #f0a160;
+  --ember-h2: #e4b56a;
+  --ember-h3: #e08468;
+  --ember-h4: #b8a07e;
+  --ember-folder: #e8894a;
+  --ember-folder-text: #eab37a;
+  --ember-file-text: #c9b8a8;
+  --ember-file-icon: #8a776a;
+  --ember-active-bg: #3a2a20;
+  --ember-link: #f0a160;
+  --ember-tag: #f3b27a;
+  --ember-tag-bg: #3d2a1d;
+  --ember-code-bg: #191310;
+  --ember-code-text: #dccbb8;
+  --ember-kw: #e8894a;
+  --ember-str: #c9b35f;
+  --ember-fn: #e6a86b;
+  --ember-num: #e08468;
+  --ember-comment: #958475;
+  --ember-callout-bg: #2c201a;
+  --ember-callout-border: #4a3426;
+  --ember-callout: #e4b56a;
+  --ember-inline-bg: #33251c;
+  --ember-inline: #f0a160;
+  /* Default accent = ember as HSL. Obsidian's accent color setting overrides these. */
+  --accent-h: 23.9;
+  --accent-s: 77.5%;
+  --accent-l: 60%;
+  /* Ink for text on accent-colored fills. */
+  --ember-ink-dark: var(--ember-bg);
+  --ember-ink-light: var(--ember-text);
+}
+
+.theme-light {
+  --ember-bg: #faf4ec;
+  --ember-side: #f2e8db;
+  --ember-side2: #ebdfcf;
+  --ember-border: #e0d0bc;
+  --ember-text: #3b2a20;
+  --ember-muted: #7a6455;
+  --ember-faint: #a08a77;
+  --ember-accent: #b04700;
+  --ember-h1: #ae4814;
+  --ember-h2: #94570f;
+  --ember-h3: #a8432e;
+  --ember-h4: #7b644e;
+  --ember-folder: #c9672a;
+  --ember-folder-text: #8f4415;
+  --ember-file-text: #5a4638;
+  --ember-file-icon: #b39a85;
+  --ember-active-bg: #ead7c0;
+  --ember-link: #b04a17;
+  --ember-tag: #9a4a1a;
+  --ember-tag-bg: #f3dcc4;
+  --ember-code-bg: #f3e9dc;
+  --ember-code-text: #3b2a20;
+  --ember-kw: #b04a17;
+  --ember-str: #636e11;
+  --ember-fn: #94570f;
+  --ember-num: #a8432e;
+  --ember-comment: #796553;
+  --ember-callout-bg: #f6e7d4;
+  --ember-callout-border: #e6cdb0;
+  --ember-callout: #94570f;
+  --ember-inline-bg: #f1e2cf;
+  --ember-inline: #a8432e;
+  --accent-h: 24.2;
+  --accent-s: 100.0%;
+  --accent-l: 34.5%;
+  --ember-ink-dark: var(--ember-text);
+  --ember-ink-light: var(--ember-bg);
+}
+
+/* Hallows: only the tokens that differ from Leaves. */
+body.ember-decor-hallows.theme-dark {
+  --ember-bg: #1f1824;
+  --ember-side: #1a1420;
+  --ember-side2: #15101a;
+  --ember-border: #382c44;
+  --ember-text: #e6dcea;
+  --ember-muted: #a596ae;
+  --ember-faint: #7a6c84;
+  --ember-h2: #b98ae6;
+  --ember-h3: #e4b56a;
+  --ember-h4: #b39cc4;
+  --ember-folder: #a77bd9;
+  --ember-folder-text: #c9a8ee;
+  --ember-file-text: #cdbfd6;
+  --ember-file-icon: #86768f;
+  --ember-active-bg: #35283f;
+  --ember-tag: #d2b6f2;
+  --ember-tag-bg: #33264a;
+  --ember-code-bg: #18121d;
+  --ember-code-text: #ddd0e4;
+  --ember-kw: #b98ae6;
+  --ember-str: #e4b56a;
+  --ember-fn: #f0a160;
+  --ember-comment: #958599;
+  --ember-callout-bg: #2a2036;
+  --ember-callout-border: #46365a;
+  --ember-callout: #c9a8ee;
+  --ember-inline-bg: #2e2338;
+  --ember-inline: #c9a8ee;
+  --ember-pumpkin: #e8894a;
+  --ember-ghost: #ddd0ec;
+  --ember-bat: #a77bd9;
+}
+
+body.ember-decor-hallows.theme-light {
+  --ember-bg: #f8f3f8;
+  --ember-side: #efe6f1;
+  --ember-side2: #e7dcea;
+  --ember-border: #ddcde2;
+  --ember-text: #2f2236;
+  --ember-muted: #6e5c78;
+  --ember-faint: #97859f;
+  --ember-h2: #6e3fa0;
+  --ember-h3: #8f540e;
+  --ember-h4: #6f5a7d;
+  --ember-folder: #7d4fb3;
+  --ember-folder-text: #5b3087;
+  --ember-file-text: #4f4058;
+  --ember-file-icon: #ad9ab8;
+  --ember-active-bg: #e6d6ef;
+  --ember-tag: #6c3f94;
+  --ember-tag-bg: #eadcf3;
+  --ember-code-bg: #f1e8f3;
+  --ember-code-text: #2f2236;
+  --ember-kw: #6e3fa0;
+  --ember-str: #86590c;
+  --ember-fn: #b04a17;
+  --ember-comment: #756477;
+  --ember-callout-bg: #f0e4f5;
+  --ember-callout-border: #dcc6e8;
+  --ember-callout: #6e3fa0;
+  --ember-inline-bg: #ecdff2;
+  --ember-inline: #6e3fa0;
+  --ember-pumpkin: #d0662a;
+  --ember-ghost: #9b84ad;
+  --ember-bat: #6e3fa0;
+}
+
+/* Icons per palette: build.py turns each ember-svg call (icon name, color token) into a
+   data: URI with the token's color baked in (CSS can't recolor a background SVG). */
+.theme-dark {
+  --ember-icon-maple: ember-svg(maple, --ember-accent);
+  --ember-icon-maple-alt: ember-svg(maple, --ember-h2);
+  --ember-icon-callout: ember-svg(oak, --ember-callout);
+  --ember-decor-hr: ember-svg(decor-leaves-hr);
+  --ember-decor-sidebar: ember-svg(decor-leaves-sidebar);
+  --ember-decor-editor: ember-svg(decor-leaves-editor);
+  --ember-icon-folder: ember-svg(folder-closed, --ember-folder);
+  --ember-icon-folder-open: ember-svg(folder-open, --ember-folder);
+  --ember-icon-file: ember-svg(file, --ember-file-icon);
+  --ember-icon-file-active: ember-svg(file, --ember-accent);
+}
+
+.theme-light {
+  --ember-icon-maple: ember-svg(maple, --ember-accent);
+  --ember-icon-maple-alt: ember-svg(maple, --ember-h2);
+  --ember-icon-callout: ember-svg(oak, --ember-callout);
+  --ember-decor-hr: ember-svg(decor-leaves-hr);
+  --ember-decor-sidebar: ember-svg(decor-leaves-sidebar);
+  --ember-decor-editor: ember-svg(decor-leaves-editor);
+  --ember-icon-folder: ember-svg(folder-closed, --ember-folder);
+  --ember-icon-folder-open: ember-svg(folder-open, --ember-folder);
+  --ember-icon-file: ember-svg(file, --ember-file-icon);
+  --ember-icon-file-active: ember-svg(file, --ember-accent);
+}
+
+body.ember-decor-hallows.theme-dark {
+  --ember-icon-pumpkin: ember-svg(pumpkin, --ember-pumpkin);
+  --ember-icon-skull: ember-svg(skull, --ember-h4);
+  --ember-icon-callout: ember-svg(ghost, --ember-callout);
+  --ember-icon-web: ember-svg(web, --ember-muted);
+  --ember-decor-hr: ember-svg(decor-hallows-hr);
+  --ember-decor-sidebar: ember-svg(decor-hallows-sidebar);
+  --ember-decor-editor: ember-svg(decor-hallows-editor);
+  --ember-icon-folder: ember-svg(folder-closed, --ember-folder);
+  --ember-icon-folder-open: ember-svg(folder-open, --ember-folder);
+  --ember-icon-file: ember-svg(file, --ember-file-icon);
+}
+
+body.ember-decor-hallows.theme-light {
+  --ember-icon-pumpkin: ember-svg(pumpkin, --ember-pumpkin);
+  --ember-icon-skull: ember-svg(skull, --ember-h4);
+  --ember-icon-callout: ember-svg(ghost, --ember-callout);
+  --ember-icon-web: ember-svg(web, --ember-muted);
+  --ember-decor-hr: ember-svg(decor-hallows-hr);
+  --ember-decor-sidebar: ember-svg(decor-hallows-sidebar);
+  --ember-decor-editor: ember-svg(decor-hallows-editor);
+  --ember-icon-folder: ember-svg(folder-closed, --ember-folder);
+  --ember-icon-folder-open: ember-svg(folder-open, --ember-folder);
+  --ember-icon-file: ember-svg(file, --ember-file-icon);
+}
+
+/* ---------- Obsidian variables (same mapping for every palette) ---------- */
+
+.theme-dark,
+.theme-light {
+  /* Warm grey ramp: Obsidian derives form fields, buttons, hover borders and
+     other unmapped UI from these, so they blend from bg toward text. */
+  --color-base-00: var(--ember-bg);
+  --color-base-05: color-mix(in oklch, var(--ember-text) 2%, var(--ember-bg));
+  --color-base-10: color-mix(in oklch, var(--ember-text) 3%, var(--ember-bg));
+  --color-base-20: color-mix(in oklch, var(--ember-text) 5%, var(--ember-bg));
+  --color-base-25: color-mix(in oklch, var(--ember-text) 8%, var(--ember-bg));
+  --color-base-30: color-mix(in oklch, var(--ember-text) 12%, var(--ember-bg));
+  --color-base-35: color-mix(in oklch, var(--ember-text) 16%, var(--ember-bg));
+  --color-base-40: color-mix(in oklch, var(--ember-text) 30%, var(--ember-bg));
+  --color-base-50: var(--ember-faint);
+  --color-base-60: color-mix(in oklch, var(--ember-text) 65%, var(--ember-bg));
+  --color-base-70: var(--ember-muted);
+  --color-base-100: var(--ember-text);
+
+  --background-primary: var(--ember-bg);
+  --background-primary-alt: var(--ember-side);
+  --background-secondary: var(--ember-side);
+  --background-secondary-alt: var(--ember-side2);
+  --background-modifier-border: var(--ember-border);
+  --background-modifier-hover: color-mix(in oklch, var(--ember-active-bg) 60%, transparent);
+  --divider-color: var(--ember-border);
+
+  --text-normal: var(--ember-text);
+  --text-muted: var(--ember-muted);
+  --text-faint: var(--ember-faint);
+
+  /* Accent: ember by default, follows Obsidian's accent color setting.
+     Obsidian lightens --color-accent-1/2 for text; keep the accent itself. */
+  --color-accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-1: var(--color-accent);
+  --color-accent-2: color-mix(in oklch, var(--color-accent) 85%, var(--ember-text));
+  --text-accent: var(--color-accent);
+  --text-accent-hover: var(--color-accent-2);
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: var(--color-accent-2);
+  /* Ink picked from the accent's lightness: above 55% dark ink, below light ink.
+     The ember accents (60% / 34.5%) get 6.6:1 and 5.1:1. */
+  --text-on-accent: color-mix(in srgb, var(--ember-ink-dark) clamp(0%, calc((var(--accent-l) - 55%) * 100), 100%), var(--ember-ink-light));
+  --text-on-accent-inverted: var(--ember-ink-dark);
+
+  /* Chrome */
+  --titlebar-background: var(--ember-side2);
+  --titlebar-background-focused: var(--ember-side2);
+  --ribbon-background: var(--ember-side2);
+  --ribbon-background-collapsed: var(--ember-side2);
+  --tab-container-background: var(--ember-side);
+  --tab-background-active: var(--ember-bg);
+  --tab-outline-color: var(--ember-border);
+  --status-bar-background: var(--ember-side);
+  --status-bar-border-color: var(--ember-border);
+  --status-bar-text-color: var(--ember-faint);
+
+  /* Explorer and other nav lists */
+  --nav-item-color: var(--ember-file-text);
+  --nav-item-color-hover: var(--ember-text);
+  --nav-item-color-active: var(--ember-text);
+  --nav-item-background-hover: color-mix(in oklch, var(--ember-active-bg) 60%, transparent);
+  --nav-item-background-active: var(--ember-active-bg);
+
+  /* Headings */
+  --h1-color: var(--ember-h1);
+  --h2-color: var(--ember-h2);
+  --h3-color: var(--ember-h3);
+  --h4-color: var(--ember-h4);
+  --h5-color: var(--ember-h4);
+  --h6-color: var(--ember-muted);
+
+  /* Links */
+  --link-color: var(--ember-link);
+  --link-color-hover: var(--ember-h1);
+  --link-external-color: var(--ember-link);
+  --link-external-color-hover: var(--ember-h1);
+  --link-unresolved-color: var(--ember-muted);
+  --link-unresolved-decoration-color: var(--ember-muted);
+
+  /* Tags */
+  --tag-color: var(--ember-tag);
+  --tag-color-hover: var(--ember-tag);
+  --tag-background: var(--ember-tag-bg);
+  --tag-background-hover: color-mix(in oklch, var(--ember-tag) 15%, var(--ember-tag-bg));
+
+  /* Code */
+  --code-background: var(--ember-code-bg);
+  --code-normal: var(--ember-code-text);
+  --code-comment: var(--ember-comment);
+  --code-keyword: var(--ember-kw);
+  --code-function: var(--ember-fn);
+  --code-string: var(--ember-str);
+  --code-value: var(--ember-num);
+  --code-property: var(--ember-fn);
+  --code-tag: var(--ember-kw);
+  --code-important: var(--ember-num);
+  --code-operator: var(--ember-code-text);
+  --code-punctuation: var(--ember-muted);
+
+  /* Highlights, quotes, rules, bullets */
+  --text-highlight-bg: color-mix(in oklch, var(--ember-h2) 30%, transparent);
+  --blockquote-border-color: var(--ember-h4);
+  --hr-color: var(--ember-border);
+  --list-marker-color: var(--ember-accent);
+
+  /* Callouts: one look for all (spec), title and icon color per type.
+     Full colors (Obsidian 1.14+ format); the .callout rules below keep older
+     versions, which expect an RGB triplet, rendering correctly. */
+  --callout-default: var(--ember-callout);
+  --callout-info: var(--ember-callout);
+  --callout-todo: var(--ember-callout);
+  --callout-summary: var(--ember-callout);
+  --callout-important: var(--ember-h1);
+  --callout-question: var(--ember-h1);
+  --callout-warning: var(--ember-accent);
+  --callout-tip: var(--ember-str);
+  --callout-success: var(--ember-str);
+  --callout-fail: var(--ember-num);
+  --callout-error: var(--ember-num);
+  --callout-bug: var(--ember-num);
+  --callout-example: var(--ember-h4);
+  --callout-quote: var(--ember-muted);
+}
+
+/* ---------- Shared tokens ---------- */
+
+/* Sizes are the mock's px at its 14px body, as em of the real body size. */
+body {
+  /* Fonts are not embedded (size budget): these are used when installed,
+     otherwise Obsidian's defaults. Settings > Appearance > Font overrides them. */
+  --font-text-theme: 'DM Sans';
+  --font-interface-theme: 'DM Sans';
+  --font-monospace-theme: 'JetBrains Mono';
+  /* Style Settings "Heading font" overrides this. */
+  --ember-font-heading: 'Literata', Georgia, serif;
+  --line-height-normal: 1.6;
+
+  /* H1-H3 serif, H4-H6 sans. 30 / 22 / 17 / 11.5 / 13 / 13px in the mock. */
+  --h1-font: var(--ember-font-heading);
+  --h2-font: var(--ember-font-heading);
+  --h3-font: var(--ember-font-heading);
+  --h1-size: 2.143em;
+  --h2-size: 1.571em;
+  --h3-size: 1.214em;
+  --h4-size: 0.821em;
+  --h5-size: 0.929em;
+  --h6-size: 0.929em;
+  --h1-line-height: 1.15;
+  --h2-line-height: 1.25;
+  --h3-line-height: 1.3;
+  --h1-weight: 600;
+  --h2-weight: 600;
+  --h3-weight: 600;
+  --h4-weight: 700;
+  --h5-weight: 600;
+  --h6-weight: 600;
+  --h1-letter-spacing: 0;
+  --h2-letter-spacing: 0;
+  --h3-letter-spacing: 0;
+  --h4-letter-spacing: 0.14em;
+  --h5-letter-spacing: 0;
+
+  /* Links: dotted underline drawn as a border (see below). */
+  --link-decoration: none;
+  --link-decoration-hover: none;
+  --link-unresolved-opacity: 1;
+
+  /* Tags: pill, 12.5px */
+  --tag-radius: 999px;
+  --tag-padding-x: 8px;
+  --tag-padding-y: 1px;
+  --tag-size: 0.893em;
+
+  /* Code: 12.5px, blocks 8px radius with a hairline; inline code overrides below. */
+  --code-size: 0.893em;
+  --code-radius: 8px;
+  --code-border-width: 1px;
+
+  /* Callouts: 8px radius, full 1px border, 12.5px / 600 title, 13px icon. */
+  --callout-radius: 8px;
+  --callout-padding: 10px 14px;
+  --callout-border-width: 1px;
+  --callout-title-size: 0.893em;
+  --callout-title-weight: 600;
+  --callout-blend-mode: normal;
+
+  --hr-thickness: 1px;
+}
+
+/* ---------- Headings ---------- */
+
+/* H1 (and the inline title): 2px rule under it. */
+.markdown-rendered h1,
+.inline-title,
+.HyperMD-header-1 {
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--ember-border);
+}
+
+/* H4: small caps-style label. */
+.markdown-rendered h4,
+.HyperMD-header-4 {
+  text-transform: uppercase;
+}
+
+/* H2 marker: an icon in an 18px slot with a 10px gap. Leaves (default): maple.
+   Off: 7px rotated square in the H2 color. Hallows: pumpkin. */
+body {
+  --ember-h2-mark: var(--ember-icon-maple);
+  --ember-h2-mark-size: 18px;
+  --ember-h2-mark-margin: 0 10px 0.15em 0;
+  --ember-h2-mark-rotate: -12deg;
+}
+
+body.ember-decor-off {
+  --ember-h2-mark: linear-gradient(var(--ember-h2), var(--ember-h2));
+  --ember-h2-mark-size: 7px;
+  --ember-h2-mark-margin: 0 15.5px 0.2em 5.5px;
+  --ember-h2-mark-rotate: 45deg;
+}
+
+body.ember-decor-hallows {
+  --ember-h2-mark: var(--ember-icon-pumpkin);
+  --ember-h2-mark-size: 20px;
+  --ember-h2-mark-rotate: 0deg;
+}
+
+.markdown-rendered h2::before,
+.HyperMD-header-2::before {
+  content: "";
+  display: inline-block;
+  width: var(--ember-h2-mark-size);
+  height: var(--ember-h2-mark-size);
+  margin: var(--ember-h2-mark-margin);
+  vertical-align: middle;
+  background: var(--ember-h2-mark) center / contain no-repeat;
+  transform: rotate(var(--ember-h2-mark-rotate));
+}
+
+/* ---------- Links ----------
+   Dotted underline, 3px offset. text-decoration-style is flagged by the store
+   lint, so it's a dotted bottom border in the link color. */
+.markdown-rendered a.internal-link,
+.markdown-rendered a.external-link,
+.markdown-source-view.mod-cm6 .cm-underline {
+  padding-bottom: 1px;
+  border-bottom: 1px dotted currentcolor;
+}
+
+.markdown-rendered a.internal-link.is-unresolved,
+.markdown-source-view.mod-cm6 .is-unresolved .cm-underline {
+  border-bottom-style: dashed;
+}
+
+.markdown-rendered a.internal-link,
+.markdown-rendered a.external-link,
+.markdown-rendered a.tag {
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+/* ---------- Code ---------- */
+
+/* Inline code: own colors, 4px radius, no border. Setting Obsidian's variables
+   on the element keeps its own rules (and selection handling) working. */
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code {
+  --code-background: var(--ember-inline-bg);
+  --code-normal: var(--ember-inline);
+  --code-radius: 4px;
+  --code-border-width: 0px;
+}
+
+.markdown-rendered :not(pre) > code {
+  padding: 1px 6px;
+}
+
+/* Code blocks: 12px 16px padding, line-height 1.65. */
+.markdown-rendered pre {
+  padding: 12px 16px;
+  line-height: 1.65;
+}
+
+.cm-s-obsidian .HyperMD-codeblock {
+  line-height: 1.65;
+}
+
+/* Comments in code: italic. */
+.cm-s-obsidian .HyperMD-codeblock .cm-comment,
+.markdown-rendered .token.comment {
+  font-style: italic;
+}
+
+/* ---------- %% Comments %% (editor only; reading view hides them) ----------
+   Italic, comment color, 1px dashed box. Obsidian splits a comment into
+   %% start, text and %% end spans: top and bottom edges go on every span,
+   the side edges on the start and end spans, so they join into one box. */
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) .cm-comment {
+  font-size: 0.929em;
+  font-style: italic;
+  color: var(--ember-comment);
+  padding-block: 2px;
+  border-block: 1px dashed var(--ember-border);
+}
+
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) .cm-comment-start {
+  padding-inline-start: 10px;
+  border-inline-start: 1px dashed var(--ember-border);
+  border-start-start-radius: 6px;
+  border-end-start-radius: 6px;
+}
+
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) .cm-comment-end {
+  padding-inline-end: 10px;
+  border-inline-end: 1px dashed var(--ember-border);
+  border-start-end-radius: 6px;
+  border-end-end-radius: 6px;
+}
+
+/* ---------- Callouts ---------- */
+
+.callout {
+  background-color: var(--ember-callout-bg);
+  border: 1px solid var(--ember-callout-border);
+}
+
+.callout-title,
+.callout-icon .svg-icon {
+  color: var(--callout-color);
+}
+
+.callout-icon {
+  --icon-size: 1.04em;
+}
+
+/* ---------- File explorer ----------
+   Folders: two-tone folder icon (open / closed), folder color, weight 600.
+   Files: outlined page icon, file text, weight 400; the active file's icon
+   takes the accent. Everything is scoped to .nav-files-container, which only
+   the file explorer uses, and mostly sets Obsidian's --nav-item-* variables so
+   its own hover, active and selected rules keep working. */
+
+.nav-files-container {
+  --nav-item-size: 13px;
+  --nav-item-radius: 6px;
+  --nav-item-padding: 4px 8px 4px 24px;
+  --nav-item-parent-padding: var(--nav-item-padding);
+  /* Indent guides: 1px line, 16px in, 8px to the children. */
+  --nav-item-children-margin-start: 16px;
+  --nav-item-children-padding-start: 8px;
+  --nav-indentation-guide-width: 1px;
+  --nav-indentation-guide-color: var(--ember-border);
+  --nav-collapse-icon-color: var(--ember-folder);
+  --nav-collapse-icon-color-collapsed: var(--ember-folder);
+}
+
+/* Right-to-left layouts mirror the padding, as Obsidian does. */
+:is(.mod-rtl, .is-rtl, .rtl) .nav-files-container {
+  --nav-item-padding: 4px 24px 4px 8px;
+}
+
+.nav-files-container .nav-folder-title {
+  --nav-item-color: var(--ember-folder-text);
+  --nav-item-color-hover: var(--ember-folder-text);
+  --nav-item-color-active: var(--ember-folder-text);
+  --nav-item-weight: 600;
+  --nav-item-weight-hover: 600;
+  --nav-item-weight-active: 600;
+  --ember-tree-icon: var(--ember-icon-folder-open);
+  --ember-tree-icon-size: 17px;
+  --ember-tree-icon-gap: 6px;
+}
+
+.nav-files-container .nav-folder.is-collapsed > .nav-folder-title {
+  --ember-tree-icon: var(--ember-icon-folder);
+}
+
+.nav-files-container .nav-file-title {
+  --ember-tree-icon: var(--ember-icon-file);
+  --ember-tree-icon-size: 16px;
+  --ember-tree-icon-gap: 7px;
+}
+
+.nav-files-container .nav-file-title.is-active {
+  --ember-tree-icon: var(--ember-icon-file-active);
+}
+
+/* Obsidian 1.5 shows the vault name as the root folder's title: no icon there. */
+.nav-files-container .nav-folder.mod-root > .nav-folder-title {
+  --nav-item-color: var(--text-normal);
+  --ember-tree-icon: none;
+  --ember-tree-icon-size: 0px;
+  --ember-tree-icon-gap: 0px;
+}
+
+/* Icons. On the row, not the title text: the text element becomes
+   contenteditable while renaming, and an icon inside it puts the caret
+   before the icon once the name is empty. Replaces Obsidian's zero-width
+   .tree-item-self::before baseline helper. */
+.nav-files-container .nav-folder-title::before,
+.nav-files-container .nav-file-title::before {
+  content: "";
+  flex: 0 0 auto;
+  align-self: center;
+  width: var(--ember-tree-icon-size);
+  height: var(--ember-tree-icon-size);
+  margin-inline-end: var(--ember-tree-icon-gap);
+  background: var(--ember-tree-icon) center / contain no-repeat;
+}
+
+/* Chevron: Obsidian's own, 12px, stroke 2.6, in the folder color. It points
+   down when open and Obsidian rotates it when collapsed. */
+.nav-files-container .collapse-icon svg.svg-icon {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.6px;
+}
+
+.nav-files-container .tree-item-self {
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+/* ---------- Seasonal decor ----------
+   Leaves is the default (no class, or ember-decor-leaves), so Leaves-only rules
+   select body:not(off, hallows) and work without the Style Settings plugin.
+   Rules shared by Leaves and Hallows select body:not(.ember-decor-off) and take
+   their images from the palette rules above and their sizes from here.
+   Sparse, low opacity, no pointer events. */
+
+body {
+  --ember-decor-hr-size: 45px 15px;
+  --ember-decor-hr-line: calc(50% - 32.5px);
+  --ember-decor-sidebar-height: 110px;
+  --ember-decor-sidebar-opacity: 0.6;
+  --ember-decor-editor-width: 150px;
+  --ember-decor-editor-height: 115px;
+  --ember-callout-icon-size: 1.04em;
+}
+
+body.ember-decor-hallows {
+  --ember-decor-hr-size: 52px 16px;
+  --ember-decor-hr-line: calc(50% - 36px);
+  --ember-decor-sidebar-height: 90px;
+  --ember-decor-sidebar-opacity: 1;
+  --ember-decor-editor-width: 180px;
+  --ember-decor-editor-height: 110px;
+  --ember-callout-icon-size: 1.12em;
+}
+
+/* Bullets, Leaves: 11px maples, alternating accent / H2 color, rotated
+   20 / -25deg. Live Preview has one line per item, so it alternates by line. */
+body:not(.ember-decor-off, .ember-decor-hallows) {
+  --list-bullet-size: 11px;
+  --list-bullet-radius: 0;
+  --list-bullet-transform: rotate(20deg);
+}
+
+body:not(.ember-decor-off, .ember-decor-hallows) .list-bullet::after {
+  background: var(--ember-icon-maple) center / contain no-repeat;
+}
+
+body:not(.ember-decor-off, .ember-decor-hallows) :is(li:nth-child(even) > .list-bullet, .cm-line:nth-child(even) .list-bullet) {
+  --list-bullet-transform: rotate(-25deg);
+}
+
+body:not(.ember-decor-off, .ember-decor-hallows) :is(li:nth-child(even) > .list-bullet, .cm-line:nth-child(even) .list-bullet)::after {
+  background-image: var(--ember-icon-maple-alt);
+}
+
+/* Bullets, Hallows: 12px skulls in the H4 color. */
+body.ember-decor-hallows {
+  --list-bullet-size: 12px;
+  --list-bullet-radius: 0;
+}
+
+body.ember-decor-hallows .list-bullet::after {
+  background: var(--ember-icon-skull) center / contain no-repeat;
+}
+
+/* Horizontal rule: 1px line with a centered cluster (elm, maple, oak / bat,
+   pumpkin, bat) and 10px gaps. */
+body:not(.ember-decor-off) :is(.markdown-rendered hr, .markdown-source-view.mod-cm6 .hr hr) {
+  height: 16px;
+  border: none;
+  background:
+    var(--ember-decor-hr) center / var(--ember-decor-hr-size) no-repeat,
+    linear-gradient(var(--ember-border), var(--ember-border)) left center / var(--ember-decor-hr-line) 1px no-repeat,
+    linear-gradient(var(--ember-border), var(--ember-border)) right center / var(--ember-decor-hr-line) 1px no-repeat;
+}
+
+/* Note callouts: oak leaf / ghost instead of the pencil. */
+body:not(.ember-decor-off) .callout[data-callout="note"] .callout-icon .svg-icon {
+  display: none;
+}
+
+body:not(.ember-decor-off) .callout[data-callout="note"] .callout-icon::after {
+  content: "";
+  width: var(--ember-callout-icon-size);
+  height: var(--ember-callout-icon-size);
+  background: var(--ember-icon-callout) center / contain no-repeat;
+}
+
+/* Sidebar: decor at the bottom of the file explorer (a pile of leaves at 60%,
+   or pumpkins, a ghost and a bat). */
+body:not(.ember-decor-off) .workspace-leaf-content[data-type="file-explorer"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: var(--ember-decor-sidebar-height);
+  opacity: var(--ember-decor-sidebar-opacity);
+  pointer-events: none;
+  background: var(--ember-decor-sidebar) left bottom / 216px var(--ember-decor-sidebar-height) no-repeat;
+}
+
+/* Hallows: a cobweb in the explorer's top-right corner, at 45%. */
+body.ember-decor-hallows .workspace-leaf-content[data-type="file-explorer"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 76px;
+  height: 76px;
+  opacity: 0.45;
+  pointer-events: none;
+  background: var(--ember-icon-web) center / contain no-repeat;
+}
+
+/* Editor: decor in the top-right corner of every note, below the view header.
+   It stays put while the note scrolls. */
+body:not(.ember-decor-off) .workspace-leaf-content[data-type="markdown"]::after {
+  content: "";
+  position: absolute;
+  top: var(--header-height);
+  right: 0;
+  width: var(--ember-decor-editor-width);
+  height: var(--ember-decor-editor-height);
+  pointer-events: none;
+  background: var(--ember-decor-editor) right top / 100% 100% no-repeat;
+}
+
+/* ---------- Mobile (phone and tablet) ---------- */
+
+.is-mobile {
+  --h1-size: 1.75em;    /* 28px */
+  --h2-size: 1.375em;   /* 22px */
+  --h3-size: 1.125em;   /* 18px */
+  --code-white-space: pre; /* code blocks scroll sideways instead of wrapping */
+}
+
+/* Touch-size tree rows: 16px x 1.3 line-height + 2 x 12px = 44.8px; 28px indent. */
+.is-mobile .nav-files-container {
+  --nav-item-size: 16px;
+  --nav-item-padding: 12px 8px 12px 24px;
+  --nav-item-children-margin-start: 20px;
+}
+
+.is-mobile:is(.mod-rtl, .is-rtl, .rtl) .nav-files-container {
+  --nav-item-padding: 12px 24px 12px 8px;
+}
+
+/* Phones: no corner decor in the editor, the note column fills the screen. */
+body.is-phone .workspace-leaf-content[data-type="markdown"]::after {
+  content: none;
+}
